@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.or.ddit.board.service.BoardServiceImpl;
+import kr.or.ddit.board.service.IBoardService;
 import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.user.service.IUserService;
 import kr.or.ddit.user.service.UserServiceImpl;
@@ -22,10 +24,12 @@ public class LoginController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private IUserService userService;
+	private IBoardService boardService;
 	
 	@Override
 	public void init() throws ServletException {
 		userService = new UserServiceImpl();
+		boardService = new BoardServiceImpl();
 	}
 
 	//로그 출력 변수
@@ -53,6 +57,9 @@ public class LoginController extends HttpServlet {
 			//userVO 객체는 session이 유지될 동안 다른 페이지에서 사용
 			HttpSession session = request.getSession();
 			session.setAttribute("userVO", userVO);
+			
+			//게시판 리스트를 request에 저장한다
+			request.setAttribute("boardList", boardService.getAllBoard());
 			
 			// localhost/main.jsp으로 보냄
 			request.getRequestDispatcher("/main.jsp").forward(request, response);
