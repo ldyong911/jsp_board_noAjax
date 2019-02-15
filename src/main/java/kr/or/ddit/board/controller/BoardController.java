@@ -44,30 +44,34 @@ public class BoardController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		
 		String type = request.getParameter("type");
-		
+
+		BoardVO boardVO = null;
 		int result = 0;
 		//type이 1이면 등록
 		if(type.equals("1")){
 			String board_name = request.getParameter("board_name_ins");
 			String use_exist = request.getParameter("use_exist_ins");
 			
-			BoardVO boardVO = new BoardVO();
+			boardVO = new BoardVO();
 			boardVO.setBoard_name(board_name);
 			boardVO.setUse_exist(use_exist);
 			result = boardService.insertBoard(boardVO);
 		}
 		//type이 2이면 수정
-		else{
+		else if(type.equals("2")){
 			String board_num_str = request.getParameter("board_num_upd");
 			Integer board_num = board_num_str == null ? null : Integer.parseInt(board_num_str);
 			String board_name = request.getParameter("board_name_upd");
 			String use_exist = request.getParameter("use_exist_upd");
 			
-			BoardVO boardVO = boardService.selectBoard(board_num);
+			boardVO = boardService.selectBoard(board_num);
 			boardVO.setBoard_name(board_name);
 			boardVO.setUse_exist(use_exist);
 			result = boardService.updateBoard(boardVO);
 		}
+		
+		String use = boardVO.getUse_exist();
+		request.setAttribute("use", use);
 		
 		if(result == 1){
 			response.sendRedirect(request.getContextPath() + "/board");

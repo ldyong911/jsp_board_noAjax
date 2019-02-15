@@ -14,15 +14,15 @@
 
 </head>
 <body>
-	<%@ include file="/module/header.jsp" %>
+	<%@ include file="/header.jsp" %>
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-sm-3 col-md-2 sidebar">
-				<%@ include file="/module/left.jsp"%>
+				<%@ include file="/left.jsp"%>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1 class="page-header">Dashboard</h1>
-				아무내용이나
+				게시판 과제하는중~
 			</div>
 		</div>
 	</div>
