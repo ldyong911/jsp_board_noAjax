@@ -1,4 +1,4 @@
-package kr.or.ddit.util;
+package kr.or.ddit.util.model;
 
 public class PageVO {
 	private int page; //페이지 번호

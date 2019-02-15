@@ -7,13 +7,13 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<div align="center" >
+	<div align="center">
 		<form action="${pageContext.request.contextPath}/login" method="post">
 			<input type="text" id="userId" name="userId"/> <br>
 			<input type="password" id="pass" name="pass"/> <br>
 			<label><input type="checkbox" id="rememberme" value="rememberme">remember me</label> <br>
 			
-			<input type="button" id="login" value="LOGIN"/>
+			<input type="button" id="signin" value="LOGIN"/>
 		</form>
 	</div>
 	
@@ -23,7 +23,7 @@
 		//초기화 데이터
 		function initdata(){
 			$("#userId").val("brown");
-			$("#pass").val("brown");
+			$("#pass").val("brown1234");
 		}
 	
 		$(document).ready(function(){
@@ -33,8 +33,8 @@
 	  			$("#rememberme").prop("checked", true); //체크박스 속성은 prop 사용
 	  		}
 			
-			//login button 클릭 이벤트 핸들러
-	  		$("#login").on("click", function(){
+			//signin button 클릭 이벤트 핸들러
+	  		$("#signin").on("click", function(){
 	  			// 1.rememberme 체크박스가 체크 되었을 경우
 	  			//   사용자 아이디 input에 저장된 값을
 	  			//   cookie이름 : userId / cookieValue : 입력된 값으로 쿠키를 생성
