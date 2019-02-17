@@ -33,8 +33,8 @@ public class BoardController extends HttpServlet {
 		//게시판 전체 조회
 		List<BoardVO> boardList = boardService.getAllBoard();
 		
-		//전체게시판리스트 속성 설정
-		request.setAttribute("boardList", boardList);
+		//전체게시판리스트를 session 속성에 저장
+		request.getSession().setAttribute("boardList", boardList);
 		
 		// localhost/board 요청시 /board/board.jsp로 보냄
 		request.getRequestDispatcher("/board/board.jsp").forward(request, response);
@@ -69,9 +69,6 @@ public class BoardController extends HttpServlet {
 			boardVO.setUse_exist(use_exist);
 			result = boardService.updateBoard(boardVO);
 		}
-		
-		String use = boardVO.getUse_exist();
-		request.setAttribute("use", use);
 		
 		if(result == 1){
 			response.sendRedirect(request.getContextPath() + "/board");

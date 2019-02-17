@@ -58,8 +58,11 @@ public class LoginController extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("userVO", userVO);
 			
-			//게시판 리스트를 request에 저장한다
-			request.setAttribute("boardList", boardService.getAllBoard());
+			//게시판 리스트를 session 속성에 저장
+//			if(session.getAttribute("boardList") != null){
+//				session.removeAttribute("boardList");
+//			}
+			session.setAttribute("boardList", boardService.getAllBoard());
 			
 			// localhost/main.jsp으로 보냄
 			request.getRequestDispatcher("/main.jsp").forward(request, response);

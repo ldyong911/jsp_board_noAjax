@@ -11,13 +11,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="#">사용자 id : ${userVO.userId}</a>
+			<a class="navbar-brand" href="#">ID : ${userVO.userId}</a>
 		</div>
 		<div id="navbar" class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-left">
 				<li><a href="${pageContext.request.contextPath}/logout">logout</a></li>
 			</ul>
-			<form class="navbar-form navbar-right">
+			<form class="navbar-form navbar-left">
 				<input type="text" class="form-control" placeholder="Search...">
 			</form>
 		</div>

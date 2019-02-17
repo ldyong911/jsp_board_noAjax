@@ -40,7 +40,7 @@
 					<form class="frmUpd" action="${pageContext.request.contextPath}/board" method="post">
 						<input type="hidden" name="type" value="2"/>
 						<label>게시판이름<input type="hidden" name="board_num_upd" value="${board.board_num}"/></label>
-						<label><input type="text" class="board_name_upd" name="board_name_upd" value="${board.board_name}"/></label>
+						<label><input type="text" name="board_name_upd" value="${board.board_name}"/></label>
 						<label>
 							<select class="use_exist_upd" name="use_exist_upd">
 								<option value="Y">사용</option>

@@ -21,8 +21,8 @@
 				<%@ include file="/left.jsp"%>
 			</div>
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-				<h1 class="page-header">메인</h1>
-				게시판 과제하는중~
+				<h1 class="page-header">게시글 상세조회</h1>
+				
 			</div>
 		</div>
 	</div>

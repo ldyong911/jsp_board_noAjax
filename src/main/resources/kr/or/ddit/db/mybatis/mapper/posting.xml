@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="posting">
+  <!-- 해당 게시판 전체 게시글 조회 -->
+  <select id="getAllPosting" resultType="PostingVO" parameterType="Integer">
+    select *
+      from posting
+     where board_num = #{board_num}
+  </select>
+  
+  <!-- 특정 게시글 조회 -->
+  <select id="selectPosting" resultType="PostingVO" parameterType="Integer">
+  	select *
+  	  from posting
+  	 where posting_num = #{posting_num}
+  </select>
+  
+  <!-- 게시글 페이징 조회 -->
+  <select id="selectPostingPagingList" resultType="PostingVO" parameterType="PageVO">
+  	select *
+      from (select a.*, rownum rn
+      		  from (select posting.*
+      		  		  from posting
+      		  		 order by posting_num) a) a
+ 	 where rn between (#{page}-1)*#{pageSize}+1 and #{page}*#{pageSize}
+  </select>
+  
+  <!-- 게시글 등록 -->
+  <insert id="insertPosting" parameterType="PostingVO">
+  	insert into posting
+  	values (posting_seq.nextval, #{board_num}, #{posting_title}, #{posting_content},
+  	        #{posting_userid}, sysdate, #{delete_exist}, #{parentposting_num})
+  </insert>
+  
+  <!-- 게시글 수정 -->
+  <update id="updatePosting" parameterType="PostingVO">
+  	update posting
+  	   set posting_title = #{posting_title},
+  		   posting_content = #{posting_content},
+  		   delete_exist = #{delete_exist}
+  	 where posting_num = #{posting_num}
+  	        
+  </update>
+  	
+  <!-- 게시글 삭제 -->
+  <delete id="deletePosting" parameterType="Integer">
+  	delete from posting
+  	 where posting_num = #{posting_num} 
+  </delete>
+</mapper>
