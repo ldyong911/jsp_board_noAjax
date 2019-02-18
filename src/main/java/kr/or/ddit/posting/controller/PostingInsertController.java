@@ -107,14 +107,14 @@ public class PostingInsertController extends HttpServlet {
 				attachVO.setRealfilename(realFilename);
 				attachVO.setPosting_num(postingVO.getPosting_num()); //insert된 시퀀스 값가져와야함 
 				
-				System.out.println("***********************************");
-				System.out.println(attachService.insertAttach(attachVO));
-				System.out.println("***********************************");
-//				result2 += attachService.insertAttach(attachVO);
+				result2 += attachService.insertAttach(attachVO);
+				
 				
 				//첨부파일을 올리지 않은 경우 filename, realFilename 모두 공백(위에서 초기화한값)
 			}
 		}
+		
+		logger.debug("attachResult : {}", result2);
 		
 		//정상 입력(성공)
 		if(result1 == 1){
