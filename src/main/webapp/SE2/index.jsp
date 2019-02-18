@@ -17,7 +17,6 @@
 
 <script type="text/javascript" src="/js/jquery/jquery-3.2.1.js"></script>
 
-
 <script src="/SE2/js/HuskyEZCreator.js"></script>
 <script type="text/javascript">
 var oEditors = []; // 개발되어 있는 소스에 맞추느라, 전역변수로 사용하였지만, 지역변수로 사용해도 전혀 무관 함.

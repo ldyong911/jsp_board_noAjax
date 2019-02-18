@@ -11,6 +11,21 @@ public class PostingVO {
 	private Date posting_date;
 	private String delete_exist;
 	private Integer parentposting_num;
+	private String posting_level;
+	
+	public PostingVO() {
+		
+	}
+	
+	public PostingVO(Integer board_num, String posting_title,
+			String posting_content, String posting_userid,
+			Integer parentposting_num) {
+		this.board_num = board_num;
+		this.posting_title = posting_title;
+		this.posting_content = posting_content;
+		this.posting_userid = posting_userid;
+		this.parentposting_num = parentposting_num;
+	}
 	
 	public Integer getPosting_num() {
 		return posting_num;
@@ -60,6 +75,12 @@ public class PostingVO {
 	public void setParentposting_num(Integer parentposting_num) {
 		this.parentposting_num = parentposting_num;
 	}
+	public String getPosting_level() {
+		return posting_level;
+	}
+	public void setPosting_level(String posting_level) {
+		this.posting_level = posting_level;
+	}
 	
 	@Override
 	public String toString() {
@@ -68,6 +89,7 @@ public class PostingVO {
 				+ ", posting_content=" + posting_content + ", posting_userid="
 				+ posting_userid + ", posting_date=" + posting_date
 				+ ", delete_exist=" + delete_exist + ", parentposting_num="
-				+ parentposting_num + "]";
+				+ parentposting_num + ", posting_level=" + posting_level + "]";
 	}
+	
 }

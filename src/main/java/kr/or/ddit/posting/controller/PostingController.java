@@ -29,11 +29,14 @@ public class PostingController extends HttpServlet {
 		String board_num_str = request.getParameter("board_num");
 		Integer board_num = Integer.parseInt(board_num_str);
 		
-		//해당 게시판 번호로 전체 게시글 조회
-		List<PostingVO> postingList = postingService.getAllPosting(board_num);
+		//해당 게시판 번호로 전체 게시글 계층형으로 조회
+		List<PostingVO> postingList = postingService.selectHierar(board_num);
 		
 		//전체 게시글 리스트를 request 속성에 설정
 		request.setAttribute("postingList", postingList);
+		
+		//해당 게시판번호를 requset 속성에 설정
+		request.setAttribute("board_num", board_num);
 		
 		// posting/posting.jsp로 forward
 		request.getRequestDispatcher("/posting/posting.jsp").forward(request, response);

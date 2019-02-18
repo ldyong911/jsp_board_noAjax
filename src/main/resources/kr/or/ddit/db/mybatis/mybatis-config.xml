@@ -11,6 +11,7 @@
   	<typeAlias alias="UserVO" type="kr.or.ddit.user.model.UserVO"/>
   	<typeAlias alias="BoardVO" type="kr.or.ddit.board.model.BoardVO"/>
   	<typeAlias alias="PostingVO" type="kr.or.ddit.posting.model.PostingVO"/>
+  	<typeAlias alias="AttachVO" type="kr.or.ddit.attach.model.AttachVO"/>
   	<typeAlias alias="PageVO" type="kr.or.ddit.util.model.PageVO"/>
   </typeAliases>
   
@@ -31,5 +32,6 @@
     <mapper resource="kr/or/ddit/db/mybatis/mapper/user.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/board.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/posting.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/attach.xml"/>
   </mappers>
 </configuration>

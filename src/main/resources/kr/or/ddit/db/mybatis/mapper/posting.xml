@@ -10,13 +10,23 @@
      where board_num = #{board_num}
   </select>
   
+  <!-- 해당 게시판 전체 게시글 계층형으로 조회 -->
+  <select id="selectHierar" resultType="PostingVO" parameterType="Integer">
+  	select posting_num, parentposting_num, lpad(' ', 5*(level-1)) || posting_title as posting_title,
+  		   level as posting_level, posting_userid, posting_date
+ 	  from posting
+ 	 where board_num = #{board_num}
+	 start with parentposting_num is null
+   connect by prior posting_num = parentposting_num
+  </select>
+  
   <!-- 특정 게시글 조회 -->
   <select id="selectPosting" resultType="PostingVO" parameterType="Integer">
   	select *
   	  from posting
   	 where posting_num = #{posting_num}
   </select>
-  
+    
   <!-- 게시글 페이징 조회 -->
   <select id="selectPostingPagingList" resultType="PostingVO" parameterType="PageVO">
   	select *
@@ -29,9 +39,15 @@
   
   <!-- 게시글 등록 -->
   <insert id="insertPosting" parameterType="PostingVO">
+  	<!-- insert되기전에 시퀀스값을 구하는 방법 -->
+   	<selectKey keyProperty="posting_num" resultType="Integer" order="BEFORE">
+   		select posting_seq.nextval from dual
+    </selectKey>
+    
+  	<!-- jdbcType을 명시적으로 선언해주면 값이 있으면 해당값을 넣고 값이 없으면 null값을 넣을 수 있음 -->
   	insert into posting
-  	values (posting_seq.nextval, #{board_num}, #{posting_title}, #{posting_content},
-  	        #{posting_userid}, sysdate, #{delete_exist}, #{parentposting_num})
+  	values (#{posting_num}, #{board_num}, #{posting_title}, #{posting_content},
+  	        #{posting_userid}, sysdate, 'Y', #{parentposting_num, jdbcType=VARCHAR}, #{posting_level, jdbcType=VARCHAR})
   </insert>
   
   <!-- 게시글 수정 -->
@@ -41,7 +57,6 @@
   		   posting_content = #{posting_content},
   		   delete_exist = #{delete_exist}
   	 where posting_num = #{posting_num}
-  	        
   </update>
   	
   <!-- 게시글 삭제 -->

@@ -38,7 +38,17 @@
 						<c:forEach items="${postingList}" var="posting">
 							<tr class="postingTr" data-postingnum="${posting.posting_num}"> <!-- 해당 게시글 클릭했을때 정보얻기위해 필요 -->
 								<td>${posting.posting_num}</td>
-								<td>${posting.posting_title}</td>
+								<td>
+									<c:if test="${posting.parentposting_num != null}">
+										<!-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) -->
+										<c:set var="level" value="${posting.posting_level}"/>
+										<c:forEach begin="1" end="${level}">
+											%&nbsp;
+										</c:forEach>
+										→
+									</c:if>
+									${posting.posting_title}
+								</td>
 								<td>${posting.posting_userid}</td>
 								<td><fmt:formatDate value="${posting.posting_date}" pattern="yyyy-MM-dd"/></td>
 							</tr>
@@ -47,6 +57,7 @@
 				</table>
 				
 				<form id="frmIns" action="${pageContext.request.contextPath}/postingInsert" method="get">
+					<input type="hidden" name="board_num" value="${board_num}"/>
 					<input type="button" id="btnIns" value="새글등록"/>
 				</form>
 				
@@ -69,8 +80,9 @@
 				$("#frmDetail").submit();
 			});
 			
+			//새글등록 이벤트
 			$("#btnIns").on("click", function(){
-				
+				$("#frmIns").submit();
 			});
 		});
 	</script>

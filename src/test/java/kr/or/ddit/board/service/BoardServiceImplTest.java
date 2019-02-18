@@ -17,16 +17,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class BoardServiceImplTest {
-	private SqlSession sqlSession;
 	private IBoardService boardService;
 	
 	private Logger logger = LoggerFactory.getLogger(BoardServiceImplTest.class);
 	
 	@Before
 	public void setup(){
-		SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
-		sqlSession = sqlSessionFactory.openSession();
-		
 		boardService = new BoardServiceImpl();
 	}
 	
