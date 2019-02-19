@@ -20,6 +20,20 @@
   <!-- 첨부파일 삭제 -->
   <delete id="deleteAttach" parameterType="Integer">
   	delete from attach
-  	 where attach_num = #{attach_num} 
+  	 where posting_num = #{posting_num} 
   </delete>
+  
+  <!-- 첨부파일 조회 -->
+  <select id="selectAttach" resultType="AttachVO" parameterType="Integer">
+  	select *
+  	  from attach
+  	 where attach_num = #{attach_num}
+  </select>
+  
+  <!-- 해당 게시글 첨부파일 조회 -->
+  <select id="selectAttachList" resultType="AttachVO" parameterType="Integer">
+  	select *
+  	  from attach
+  	 where posting_num = #{posting_num}
+  </select>
 </mapper>

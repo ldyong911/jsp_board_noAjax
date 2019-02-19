@@ -44,8 +44,14 @@
 					
 					<div class="form-group">
 						<label for="attachfile" class="col-sm-2 control-label">첨부파일</label>
-						<div class="col-sm-5">
-							<input id="filename" class="form-control" readonly/>
+						
+						<%-- 파일명을 가지는 라벨을 동적으로 생성하기 위해 id값을 부여해서 jquery html 속성을 사용 --%>
+						<div id="file" class="col-sm-5">
+							<c:forEach items="${attachList}" var="attach">
+								<a href="${pageContext.request.contextPath}/attach?attach_num=${attach.attach_num}">
+									${attach.filename}
+								</a> <br>
+							</c:forEach>
 						</div>
 						
 						<%-- 수정, 삭제는 작성한 회원만 가능 --%>
@@ -87,21 +93,7 @@
 	
 	<script src="/SE2/js/HuskyEZCreator.js"></script>
 	<script type="text/javascript">
-	
 	$(document).ready(function() {
-		//첨부파일 이벤트
-		$("#attach").on("change", function(){
-			var attach = document.getElementById("attach");
-			var files = attach.files;
-			var filename = "";
-			
-			for(var i=0; i<files.length; i++){
-				console.log(files[i].name);
-				filename += files[i].name;
-			}
-			$("#filename").val(filename);
-		});
-	
 		//수정버튼 클릭이벤트
 		$("#btnUpd").on("click", function(){
 			$("#type").val("1");

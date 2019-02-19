@@ -2,7 +2,6 @@ package kr.or.ddit.posting.controller;
 
 import java.io.IOException;
 import java.util.Collection;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.ServletException;

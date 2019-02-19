@@ -45,12 +45,18 @@
 					
 					<div class="form-group">
 						<label for="attachfile" class="col-sm-2 control-label">첨부파일</label>
-						<div class="col-sm-7">
-							<input id="filename" class="form-control" readonly/>
+						
+						<%-- 파일명을 가지는 라벨을 동적으로 생성하기 위해 id값을 부여해서 jquery html 속성을 사용 --%>
+						<div id="file" class="col-sm-7">
+							<c:forEach items="${attachList}" var="attach">
+								<label>${attach.filename}</label> <br>
+							</c:forEach>
 						</div>
-						<!-- 파일속성은 value값 문자를 지정할 수 없기때문에 file속성이 들어간 태그의 id값과 일치하는 label을 만들어서 문자를 따로 지정해야함 -->
+						
+						<%-- 파일속성은 value값 문자를 지정할 수 없기때문에 file속성이 들어간 태그의 id값과 일치하는 label을 만들어서 문자를 따로 지정해야함 --%>
 						<label for="attach">┽</label>
 						<input id="attach" name="attach" type="file" max="5" multiple style="display: none;"/>
+						
 					</div>
 					
 					<div class="form-group">
@@ -111,13 +117,15 @@
 		$("#attach").on("change", function(){
 			var attach = document.getElementById("attach");
 			var files = attach.files;
-			var filename = "";
+			var filenameLabel = "";
 			
 			for(var i=0; i<files.length; i++){
 				console.log(files[i].name);
-				filename += files[i].name;
+				filenameLabel += "<label>"+files[i].name+"</label> <br>"; //동적으로 파일명을 가지고 라벨 생성
 			}
-			$("#filename").val(filename);
+			
+			//파일명을 가지는 라벨을 동적으로 생성하기 위해 id값을 부여해서 jquery html 속성을 사용
+			$("#file").html(filenameLabel);
 		});
 	
 		//전송버튼 클릭이벤트

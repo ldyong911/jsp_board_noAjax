@@ -1,5 +1,7 @@
 package kr.or.ddit.attach.service;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -48,6 +50,58 @@ public class AttachServiceImpl implements IAttachService{
 	public int updateAttach(AttachVO attachVO) {
 		sqlSession = sqlSessionFactory.openSession();
 		int result = attachDao.updateAttach(sqlSession, attachVO);
+		sqlSession.commit();
+		sqlSession.close();
+		
+		return result;
+	}
+
+	/**
+	 * Method : selectAttachList
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param posting_num
+	 * @return
+	 * Method 설명 : 해당 게시글 첨부파일 전체 조회
+	 */
+	@Override
+	public List<AttachVO> selectAttachList(Integer posting_num) {
+		sqlSession = sqlSessionFactory.openSession();
+		List<AttachVO> attachList = attachDao.selectAttachList(sqlSession, posting_num);
+		sqlSession.close();
+		
+		return attachList;
+	}
+
+	/**
+	 * Method : selectAttach
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param attach_num
+	 * @return
+	 * Method 설명 : 첨부파일 조회
+	 */
+	@Override
+	public AttachVO selectAttach(Integer attach_num) {
+		sqlSession = sqlSessionFactory.openSession();
+		AttachVO attachVO = attachDao.selectAttach(sqlSession, attach_num);
+		sqlSession.close();
+		
+		return attachVO;
+	}
+
+	/**
+	 * Method : deleteAttach
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param posting_num
+	 * @return
+	 * Method 설명 : 해당 게시글 첨부파일 전체 삭제
+	 */
+	@Override
+	public int deleteAttach(Integer posting_num) {
+		sqlSession = sqlSessionFactory.openSession();
+		int result = attachDao.deleteAttach(sqlSession, posting_num);
 		sqlSession.commit();
 		sqlSession.close();
 		

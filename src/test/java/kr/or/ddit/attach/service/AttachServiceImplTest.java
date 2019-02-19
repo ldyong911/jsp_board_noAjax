@@ -1,6 +1,10 @@
 package kr.or.ddit.attach.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import kr.or.ddit.attach.model.AttachVO;
 
 import org.junit.Before;
@@ -44,4 +48,39 @@ public class AttachServiceImplTest {
 		assertEquals(1, result);
 	}
 
+	@Test
+	public void testSelectAttachList(){
+		/***Given***/
+		Integer posting_num = 1;
+		
+		/***When***/
+		List<AttachVO> attachList = attachService.selectAttachList(posting_num);
+		
+		/***Then***/
+		assertNotNull(attachList);
+	}
+	
+	@Test
+	public void testSelectAttach(){
+		/***Given***/
+		Integer attach_num = 1;
+		
+		/***When***/
+		AttachVO attachVO = attachService.selectAttach(attach_num);
+		
+		/***Then***/
+		assertNotNull(attachVO);
+	}
+	
+	@Test
+	public void testDeleteAttach(){
+		/***Given***/
+		Integer posting_num = 36;
+		
+		/***When***/
+		int result = attachService.deleteAttach(posting_num);
+		
+		/***Then***/
+		assertEquals(8, result);
+	}
 }
