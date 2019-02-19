@@ -2,10 +2,13 @@ package kr.or.ddit.posting.dao;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.db.mybatis.MybatisSqlSessionFactory;
 import kr.or.ddit.posting.model.PostingVO;
+import kr.or.ddit.util.model.PageVO;
 
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -77,6 +80,56 @@ public class PostingDaoImplTest {
 		
 		/***Then***/
 		assertEquals(1, result);
+	}
+	
+	@Test
+	public void testSelectPostingPaging(){
+		/***Given***/
+		Integer board_num = 1;
+		PageVO pageVO = new PageVO(1, 10);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_num", board_num);
+		map.put("page", pageVO.getPage());
+		map.put("pageSize", pageVO.getPageSize());
+		
+		/***When***/
+		List<PostingVO> postingList = postingDao.selectPostingPaging(sqlSession, map);
+		
+		/***Then***/
+		assertEquals(10, postingList.size());
+	}
+	
+	@Test
+	public void testGetPostingCnt(){
+		/***Given***/
+		Integer board_num = 1;
+		
+		/***When***/
+		int result = postingDao.getPostingCnt(sqlSession, board_num);
+		
+		/***Then***/
+		assertEquals(10, result);
+	}
+	
+	@Test
+	public void testUpdateLevel(){
+		/***Given***/
+		Integer board_num = 1;
+		List<PostingVO> postingList = postingDao.selectHierar(sqlSession, board_num);
+		
+		/***When***/
+		int result = 0;
+		for(PostingVO postingVO : postingList){
+			String posting_level = postingVO.getPosting_level();
+			
+			postingVO.setPosting_level(posting_level);
+			
+			result += postingDao.updateLevel(sqlSession, postingVO);
+		}
+		
+		/***Then***/
+		assertEquals(11, result);
 	}
 	
 }

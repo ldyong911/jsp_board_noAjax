@@ -1,6 +1,7 @@
 package kr.or.ddit.posting.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 
@@ -50,4 +51,37 @@ public interface IPostingDao {
 	 * Method 설명 : 게시글 수정
 	 */
 	int updatePosting(SqlSession sqlSession, PostingVO postingVO);
+	
+	/**
+	 * Method : selectPostingPaging
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * Method 설명 : 게시글 계층형으로 페이징 조회
+	 */
+	List<PostingVO> selectPostingPaging(SqlSession sqlSession, Map<String, Object> map);
+	
+	/**
+	 * Method : getPostingCnt
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param board_num
+	 * @return
+	 * Method 설명 : 해당 게시판 전체 게시글 수 조회
+	 */
+	int getPostingCnt(SqlSession sqlSession, Integer board_num);
+	
+	/**
+	 * Method : updateLevel
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param postingVO
+	 * @return
+	 * Method 설명 : 게시글 level 업데이트
+	 */
+	int updateLevel(SqlSession sqlSession, PostingVO postingVO);
 }

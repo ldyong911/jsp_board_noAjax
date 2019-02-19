@@ -43,7 +43,7 @@
 										<!-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) -->
 										<c:set var="level" value="${posting.posting_level}"/>
 										<c:forEach begin="1" end="${level}">
-											%&nbsp;
+											-&nbsp;
 										</c:forEach>
 										→
 									</c:if>
@@ -55,6 +55,97 @@
 						</c:forEach>
 					</tbody>
 				</table>
+				
+				<nav style="text-align: center;">
+					<ul class="pagination">
+						<!-- 첫번째 페이지 -->
+						<c:choose>
+							<c:when test="${page == '1'}">
+								<li class="disabled">
+									<a aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=1"
+									aria-label="Previous">
+										<span aria-hidden="true">&laquo;</span>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+						
+						<!-- 뒤로가기 -->
+						<c:choose>
+							<c:when test="${page == '1'}">
+								<li class="disabled">
+									<a aria-label="Previous">
+										<span aria-hidden="true">&lt;</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${page-1}"
+									aria-label="Previous">
+										<span aria-hidden="true">&lt;</span>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+
+						<!-- 페이지 -->
+						<c:forEach begin="1" end="${lastPage}" var="i">
+							<c:set var="active" value="" />
+							<c:if test="${i == page}">
+								<c:set var="active" value="active" />
+							</c:if>
+							<li class="${active}">
+								<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${i}">${i}</a>
+							</li>
+						</c:forEach>
+						
+						<!-- 앞으로가기 -->
+						<c:choose>
+							<c:when test="${page == (lastPage)}">
+								<li class="disabled">
+									<a aria-label="Next">
+										<span aria-hidden="true">&gt;</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${page+1}"
+									aria-label="Next">
+										<span aria-hidden="true">&gt;</span>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+
+						<!-- 마지막페이지 -->
+						<c:choose>
+							<c:when test="${page == (lastPage)}">
+								<li class="disabled">
+									<a aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							</c:when>
+							<c:otherwise>
+								<li>
+									<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${lastPage}"
+									aria-label="Next">
+										<span aria-hidden="true">&raquo;</span>
+									</a>
+								</li>
+							</c:otherwise>
+						</c:choose>
+					</ul>
+				</nav>
 				
 				<form id="frmIns" action="${pageContext.request.contextPath}/postingInsert" method="get">
 					<input type="hidden" name="board_num" value="${board_num}"/>

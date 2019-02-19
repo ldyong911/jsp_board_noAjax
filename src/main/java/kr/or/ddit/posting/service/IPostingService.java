@@ -1,6 +1,7 @@
 package kr.or.ddit.posting.service;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.posting.model.PostingVO;
 
@@ -45,4 +46,25 @@ public interface IPostingService {
 	 * Method 설명 : 게시글 수정
 	 */
 	int updatePosting(PostingVO postingVO);
+	
+	/**
+	 * Method : selectPostingPaging
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param map
+	 * @param board_num
+	 * @return
+	 * Method 설명 : 게시글 계층형으로 페이징 조회(해당 게시판 전체 게시글 수 또한 여기서 조회)
+	 */
+	Map<String, Object> selectPostingPaging(Map<String, Object> map, Integer board_num);
+	
+	/**
+	 * Method : updateLevel
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param postingVO
+	 * @return
+	 * Method 설명 : 게시글 level 업데이트
+	 */
+	int updateLevel(PostingVO postingVO);
 }

@@ -1,6 +1,7 @@
 package kr.or.ddit.posting.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.or.ddit.posting.model.PostingVO;
 
@@ -67,4 +68,49 @@ public class PostingDaoImpl implements IPostingDao{
 		return result;
 	}
 	
+	/**
+	 * Method : selectPostingPaging
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param map
+	 * @return
+	 * Method 설명 : 게시글 계층형으로 페이징 조회
+	 */
+	@Override
+	public List<PostingVO> selectPostingPaging(SqlSession sqlSession,
+			Map<String, Object> map) {
+		List<PostingVO> postingList = sqlSession.selectList("posting.selectPostingPaging", map);
+		return postingList;
+	}
+
+	/**
+	 * Method : getPostingCnt
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param board_num
+	 * @return
+	 * Method 설명 : 해당 게시판 전체 게시글 수 조회
+	 */
+	@Override
+	public int getPostingCnt(SqlSession sqlSession, Integer board_num) {
+		int result = sqlSession.selectOne("posting.getPostingCnt", board_num);
+		return result;
+	}
+
+	/**
+	 * Method : updateLevel
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param postingVO
+	 * @return
+	 * Method 설명 : 게시글 level 업데이트
+	 */
+	@Override
+	public int updateLevel(SqlSession sqlSession, PostingVO postingVO) {
+		int result = sqlSession.update("posting.updateLevel", postingVO);
+		return result;
+	}
 }
