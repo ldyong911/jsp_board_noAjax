@@ -25,6 +25,7 @@
 				
 				<form id="frmUpd" action="${pageContext.request.contextPath}/postingUpdate"
 					  class="form-horizontal" method="get">
+					<input type="hidden" name="board_num" value="${postingVO.board_num}"/>
 					<input type="hidden" id="type" name="type" value=""/>
 					<div class="form-group">
 						<label for="posting_title" class="col-sm-2 control-label">제목</label>
@@ -116,6 +117,7 @@
 		//답글버튼 클릭이벤트
 		$("#btnIns").on("click", function(){
 			$("#frmUpd").attr("action", "${pageContext.request.contextPath}/postingInsert"); //속성바꿀때 사용
+			$("#frmUpd").submit();
 		});
 	});
 	</script>

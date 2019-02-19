@@ -45,6 +45,12 @@ public class PostingInsertController extends HttpServlet {
 		String board_num = request.getParameter("board_num");
 		request.setAttribute("board_num", board_num);
 		
+		//답글인경우 부모글번호를 받아서 request 속성에 설정
+		String parentposting_num = request.getParameter("parentposting_num");
+		if(parentposting_num != null){
+			request.setAttribute("parentposting_num", parentposting_num);
+		}
+		
 		//게시글 등록페이지로 forward
 		request.getRequestDispatcher("/posting/postingInsert.jsp").forward(request, response);
 	}
@@ -52,17 +58,14 @@ public class PostingInsertController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		
-		//새글인지 답글인지 타입으로 판별하여 부모글 번호 세팅
-		String type = request.getParameter("type");
-		Integer parentposting_num;
+		String parentposting_num_str = request.getParameter("parentposting_num");
 		
-		//타입이 1이면 새글등록
-		if(type.equals("1")){
+		//부모글 번호 세팅
+		Integer parentposting_num = null;
+		if(parentposting_num_str == null || parentposting_num_str.equals("")){
 			parentposting_num = null;
-		}
-		//타입이 2이면 답글등록
-		else{
-			parentposting_num = Integer.parseInt(request.getParameter("parentposting_num"));
+		}else{
+			parentposting_num = Integer.parseInt(parentposting_num_str);
 		}
 		
 		//게시글 세팅

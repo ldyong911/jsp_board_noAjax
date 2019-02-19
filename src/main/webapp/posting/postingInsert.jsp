@@ -26,7 +26,8 @@
 				<form id="frmIns" action="${pageContext.request.contextPath}/postingInsert"
 					  class="form-horizontal" method="post" enctype="multipart/form-data">
 					<input type="hidden" name="board_num" value="${board_num}"/>
-					<input type="hidden" name="type" value="1"/>
+					<%-- 답글인경우 부모게시글번호에 넘겨줌 --%>
+					<input type="hidden" name="parentposting_num" value="${parentposting_num}"/>
 					<div class="form-group">
 						<label for="posting_title" class="col-sm-2 control-label">제목</label>
 						<div class="col-sm-7">
