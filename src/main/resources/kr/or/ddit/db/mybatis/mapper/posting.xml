@@ -75,7 +75,8 @@
   	update posting
   	   set posting_title = #{posting_title},
   		   posting_content = #{posting_content},
-  		   delete_exist = #{delete_exist}
+  		   delete_exist = nvl(#{delete_exist, jdbcType=VARCHAR}, delete_exist),
+  		   parentposting_num = #{parentposting_num, jdbcType=VARCHAR}
   	 where posting_num = #{posting_num}
   </update>
   	

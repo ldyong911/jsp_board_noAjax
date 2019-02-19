@@ -97,15 +97,15 @@ public class PostingInsertController extends HttpServlet {
 					//디스크에 기록(d:\attachfile\ + realFileName)
 					part.write(realFilename);
 					part.delete();
+					
+					//파일명, uuid(저장경로) 세팅
+					AttachVO attachVO = new AttachVO();
+					attachVO.setFilename(filename);
+					attachVO.setRealfilename(realFilename);
+					attachVO.setPosting_num(postingVO.getPosting_num()); //insert된 시퀀스 값가져와야함 
+					
+					result2 += attachService.insertAttach(attachVO);
 				}
-				
-				//파일명, uuid(저장경로) 세팅
-				AttachVO attachVO = new AttachVO();
-				attachVO.setFilename(filename);
-				attachVO.setRealfilename(realFilename);
-				attachVO.setPosting_num(postingVO.getPosting_num()); //insert된 시퀀스 값가져와야함 
-				
-				result2 += attachService.insertAttach(attachVO);
 				
 				//첨부파일을 올리지 않은 경우 filename, realFilename 모두 공백(위에서 초기화한값)
 			}

@@ -27,6 +27,8 @@
 		}
 	
 		$(document).ready(function(){
+			initdata();
+			
 			//userId 쿠키 값이 있을경우 userId input에 설정
 	  		if(Cookies.get("userId")){
 	  			$("#userId").val(Cookies.get("userId"));
