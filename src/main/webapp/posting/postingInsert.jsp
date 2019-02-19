@@ -116,6 +116,7 @@
 				console.log(files[i].name);
 				filename += files[i].name;
 			}
+			
 			$("#filename").val(filename);
 		});
 	

@@ -47,23 +47,26 @@
 							<input id="filename" class="form-control" readonly/>
 						</div>
 						
-						<!-- 수정이나 삭제버튼 클릭시 해당 게시글번호 넘겨줌 -->
-						<input type="hidden" name="posting_num" value="${postingVO.posting_num}"/>
-						<input id="btnUpd" type="button" value="수정"/>
-						<input id="btnDel" type="button" value="삭제"/>
+						<%-- 수정, 삭제는 작성한 회원만 가능 --%>
+						<%-- 수정이나 삭제버튼 클릭시 해당 게시글번호 넘겨줌 --%>
+						<c:if test="${sessionScope.userVO.userId == postingVO.posting_userid}">
+							<input type="hidden" name="posting_num" value="${postingVO.posting_num}"/>
+							<input id="btnUpd" type="button" value="수정"/>
+							<input id="btnDel" type="button" value="삭제"/>
+						</c:if>
 						
-						<!-- 답글버튼 클릭시 해당 게시글번호를 넘겨줘서 부모게시글번호에 세팅해야함 -->
+						<%-- 답글버튼 클릭시 해당 게시글번호를 넘겨줘서 부모게시글번호에 세팅해야함 --%>
 						<input type="hidden" name="parentposting_num" value="${postingVO.posting_num}"/>
 						<input id="btnIns" type="button" value="답글"/>
 					</div>
 					
-					<!-- 댓글 목록 출력해야함 -->
+					<%-- 댓글 목록 출력해야함 --%>
 					<div class="form-group">
 						<div class="col-sm-offset-2 col-sm-10">
 							<input id="btnUpdReply" type="button" value="댓글수정"/>
 						</div>
 					</div>
-					<!--  -->
+					<%--  --%>
 					
 					<div class="form-group">
 						<label for="reply_content" class="col-sm-2 control-label">댓글</label>
