@@ -136,4 +136,21 @@ public class PostingServiceImpl implements IPostingService{
 		return result;
 	}
 
+	/**
+	 * Method : selectPosting
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param posting_num
+	 * @return
+	 * Method 설명 : 해당 게시글 조회
+	 */
+	@Override
+	public PostingVO selectPosting(Integer posting_num) {
+		sqlSession = sqlSessionFactory.openSession();
+		PostingVO postingVO = postingDao.selectPosting(sqlSession, posting_num);
+		sqlSession.close();
+		
+		return postingVO;
+	}
+
 }

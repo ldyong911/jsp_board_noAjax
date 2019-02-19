@@ -1,6 +1,7 @@
 package kr.or.ddit.posting.service;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -115,6 +116,18 @@ public class PostingServiceImplTest {
 		
 		/***Then***/
 		assertEquals(11, result);
+	}
+	
+	@Test
+	public void testSelectPosting(){
+		/***Given***/
+		Integer posting_num = 2;
+		
+		/***When***/
+		PostingVO postingVO = postingService.selectPosting(posting_num);
+			
+		/***Then***/
+		assertNotNull(postingVO);
 	}
 
 }

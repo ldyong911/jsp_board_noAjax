@@ -84,4 +84,15 @@ public interface IPostingDao {
 	 * Method 설명 : 게시글 level 업데이트
 	 */
 	int updateLevel(SqlSession sqlSession, PostingVO postingVO);
+	
+	/**
+	 * Method : selectPosting
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param posting_num
+	 * @return
+	 * Method 설명 : 해당 게시글 조회
+	 */
+	PostingVO selectPosting(SqlSession sqlSession, Integer posting_num);
 }

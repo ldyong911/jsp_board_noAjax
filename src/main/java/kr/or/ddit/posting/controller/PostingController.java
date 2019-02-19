@@ -74,6 +74,7 @@ public class PostingController extends HttpServlet {
 		
 		//게시글 리스트
 		List<PostingVO> postingList = (List<PostingVO>) resultMap.get("postingList");
+		
 		//게시글 수
 		int postingCnt = (int)resultMap.get("postingCnt");
 		//마지막페이지 구하기

@@ -36,22 +36,35 @@
 					</thead>
 					<tbody>
 						<c:forEach items="${postingList}" var="posting">
-							<tr class="postingTr" data-postingnum="${posting.posting_num}"> <!-- 해당 게시글 클릭했을때 정보얻기위해 필요 -->
-								<td>${posting.posting_num}</td>
-								<td>
-									<c:if test="${posting.parentposting_num != null}">
-										<!-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) -->
-										<c:set var="level" value="${posting.posting_level}"/>
-										<c:forEach begin="1" end="${level}">
-											-&nbsp;
-										</c:forEach>
-										→
-									</c:if>
-									${posting.posting_title}
-								</td>
-								<td>${posting.posting_userid}</td>
-								<td><fmt:formatDate value="${posting.posting_date}" pattern="yyyy-MM-dd"/></td>
-							</tr>
+							<c:choose>
+								<c:when test="${posting.delete_exist == 'Y'}">
+									<tr>
+										<td>${posting.posting_num}</td>
+										<td>삭제된 게시글입니다.</td>
+										<td>${posting.posting_userid}</td>
+										<td><fmt:formatDate value="${posting.posting_date}" pattern="yyyy-MM-dd"/></td>
+									</tr>
+								</c:when>
+								
+								<c:otherwise>
+									<tr class="postingTr" data-postingnum="${posting.posting_num}"> <!-- 해당 게시글 클릭했을때 정보얻기위해 필요 -->
+										<td>${posting.posting_num}</td>
+										<td>
+											<c:if test="${posting.parentposting_num != null}">
+												<!-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) -->
+												<c:set var="level" value="${posting.posting_level}"/>
+												<c:forEach begin="1" end="${level}">
+													-&nbsp;
+												</c:forEach>
+												→
+											</c:if>
+											${posting.posting_title}
+										</td>
+										<td>${posting.posting_userid}</td>
+										<td><fmt:formatDate value="${posting.posting_date}" pattern="yyyy-MM-dd"/></td>
+									</tr>
+								</c:otherwise>
+							</c:choose>
 						</c:forEach>
 					</tbody>
 				</table>

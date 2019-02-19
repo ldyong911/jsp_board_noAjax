@@ -38,7 +38,7 @@
   <!-- 파라미터가 두개 필요하기때문에 map으로 받음 -->
   <select id="selectPostingPaging" resultType="PostingVO" parameterType="map">
 	select posting_num, parentposting_num, lpad(' ', 5*(posting_level-1)) || posting_title as posting_title,
-	       posting_level, posting_userid, posting_date
+	       posting_level, posting_userid, posting_date, delete_exist
 	  from (select *
 	          from (select a.*, rownum rn
 	                  from (select posting.*

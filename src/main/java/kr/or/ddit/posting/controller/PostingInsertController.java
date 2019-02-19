@@ -41,11 +41,9 @@ public class PostingInsertController extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// board_num을 파라미터로 받아 request 속성에 설정
 		String board_num = request.getParameter("board_num");
-		
 		request.setAttribute("board_num", board_num);
-		
-		System.out.println(request.getAttribute("board_num"));
 		
 		//게시글 등록페이지로 forward
 		request.getRequestDispatcher("/posting/postingInsert.jsp").forward(request, response);
@@ -109,7 +107,6 @@ public class PostingInsertController extends HttpServlet {
 				
 				result2 += attachService.insertAttach(attachVO);
 				
-				
 				//첨부파일을 올리지 않은 경우 filename, realFilename 모두 공백(위에서 초기화한값)
 			}
 		}
@@ -121,7 +118,7 @@ public class PostingInsertController extends HttpServlet {
 			//db에서 데이터를 조작하는 로직을 처리할때는 forward가 아니라 redirect를 사용해야함(새로고침시 최초요청 url로 다시 이동하기때문에)
 			//redirect는 ContextPath를 써줘야하며 redirect는 get방식임
 			//request.getRequestDispatcher("/userPagingList").forward(request, response);
-			response.sendRedirect(request.getContextPath() + "/postingDetail");
+			response.sendRedirect(request.getContextPath() + "/postingDetail?posting_num=" + postingVO.getPosting_num());
 		}
 		//정상 입력(실패)
 		else{

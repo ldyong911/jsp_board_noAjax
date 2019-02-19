@@ -113,4 +113,19 @@ public class PostingDaoImpl implements IPostingDao{
 		int result = sqlSession.update("posting.updateLevel", postingVO);
 		return result;
 	}
+
+	/**
+	 * Method : selectPosting
+	 * 작성자 : pc11
+	 * 변경이력 :
+	 * @param sqlSession
+	 * @param posting_num
+	 * @return
+	 * Method 설명 : 해당 게시글 조회
+	 */
+	@Override
+	public PostingVO selectPosting(SqlSession sqlSession, Integer posting_num) {
+		PostingVO postingVO = sqlSession.selectOne("posting.selectPosting", posting_num);
+		return postingVO;
+	}
 }

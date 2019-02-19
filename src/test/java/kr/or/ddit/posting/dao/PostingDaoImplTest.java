@@ -132,4 +132,16 @@ public class PostingDaoImplTest {
 		assertEquals(11, result);
 	}
 	
+	@Test
+	public void testSelectPosting(){
+		/***Given***/
+		Integer posting_num = 2;
+		
+		/***When***/
+		PostingVO postingVO = postingDao.selectPosting(sqlSession, posting_num);
+			
+		/***Then***/
+		assertNotNull(postingVO);
+	}
+	
 }
