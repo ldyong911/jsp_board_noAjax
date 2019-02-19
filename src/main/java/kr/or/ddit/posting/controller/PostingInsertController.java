@@ -117,7 +117,6 @@ public class PostingInsertController extends HttpServlet {
 		if(result1 == 1){
 			//db에서 데이터를 조작하는 로직을 처리할때는 forward가 아니라 redirect를 사용해야함(새로고침시 최초요청 url로 다시 이동하기때문에)
 			//redirect는 ContextPath를 써줘야하며 redirect는 get방식임
-			//request.getRequestDispatcher("/userPagingList").forward(request, response);
 			response.sendRedirect(request.getContextPath() + "/postingDetail?posting_num=" + postingVO.getPosting_num());
 		}
 		//정상 입력(실패)

@@ -25,8 +25,7 @@
 				
 				<form id="frmUpd" action="${pageContext.request.contextPath}/postingUpdate"
 					  class="form-horizontal" method="get">
-					<input type="hidden" name="board_num" value="${board_num}"/>
-					<input type="hidden" id="type" name="type" value="1"/>
+					<input type="hidden" id="type" name="type" value=""/>
 					<div class="form-group">
 						<label for="posting_title" class="col-sm-2 control-label">제목</label>
 						<div class="col-sm-7">
@@ -48,9 +47,12 @@
 							<input id="filename" class="form-control" readonly/>
 						</div>
 						
+						<!-- 수정이나 삭제버튼 클릭시 해당 게시글번호 넘겨줌 -->
+						<input type="hidden" name="posting_num" value="${postingVO.posting_num}"/>
 						<input id="btnUpd" type="button" value="수정"/>
 						<input id="btnDel" type="button" value="삭제"/>
-						<!-- 답글버튼 클릭시 해당 게시글번호를 넘겨줘야함 -->
+						
+						<!-- 답글버튼 클릭시 해당 게시글번호를 넘겨줘서 부모게시글번호에 세팅해야함 -->
 						<input type="hidden" name="parentposting_num" value="${postingVO.posting_num}"/>
 						<input id="btnIns" type="button" value="답글"/>
 					</div>
@@ -96,15 +98,16 @@
 			$("#filename").val(filename);
 		});
 	
-// 		$("#frm").attr("action", "/user"); //속성바꿀때 사용
 		//수정버튼 클릭이벤트
 		$("#btnUpd").on("click", function(){
-			
+			$("#type").val("1");
+			$("#frmUpd").submit();
 		});
 		
 		//삭제버튼 클릭이벤트
-		$("#btnUpd").on("click", function(){
-			
+		$("#btnDel").on("click", function(){
+			$("#type").val("2");
+			$("#frmUpd").submit();
 		});
 		
 		//답글버튼 클릭이벤트

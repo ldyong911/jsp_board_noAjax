@@ -37,6 +37,7 @@
 					<tbody>
 						<c:forEach items="${postingList}" var="posting">
 							<c:choose>
+								<%-- 삭제된 게시글 처리 --%>
 								<c:when test="${posting.delete_exist == 'Y'}">
 									<tr>
 										<td>${posting.posting_num}</td>
@@ -47,11 +48,11 @@
 								</c:when>
 								
 								<c:otherwise>
-									<tr class="postingTr" data-postingnum="${posting.posting_num}"> <!-- 해당 게시글 클릭했을때 정보얻기위해 필요 -->
+									<tr class="postingTr" data-postingnum="${posting.posting_num}"> <%-- 해당 게시글 클릭했을때 정보얻기위해 필요 --%>
 										<td>${posting.posting_num}</td>
 										<td>
 											<c:if test="${posting.parentposting_num != null}">
-												<!-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) -->
+												<%-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) --%>
 												<c:set var="level" value="${posting.posting_level}"/>
 												<c:forEach begin="1" end="${level}">
 													-&nbsp;
@@ -71,7 +72,7 @@
 				
 				<nav style="text-align: center;">
 					<ul class="pagination">
-						<!-- 첫번째 페이지 -->
+						<%-- 첫번째 페이지 --%>
 						<c:choose>
 							<c:when test="${page == '1'}">
 								<li class="disabled">
@@ -90,7 +91,7 @@
 							</c:otherwise>
 						</c:choose>
 						
-						<!-- 뒤로가기 -->
+						<%-- 뒤로가기 페이지 --%>
 						<c:choose>
 							<c:when test="${page == '1'}">
 								<li class="disabled">
@@ -109,7 +110,7 @@
 							</c:otherwise>
 						</c:choose>
 
-						<!-- 페이지 -->
+						<%-- 페이지 --%>
 						<c:forEach begin="1" end="${lastPage}" var="i">
 							<c:set var="active" value="" />
 							<c:if test="${i == page}">
@@ -120,7 +121,7 @@
 							</li>
 						</c:forEach>
 						
-						<!-- 앞으로가기 -->
+						<%-- 앞으로가기 페이지 --%>
 						<c:choose>
 							<c:when test="${page == (lastPage)}">
 								<li class="disabled">
@@ -139,7 +140,7 @@
 							</c:otherwise>
 						</c:choose>
 
-						<!-- 마지막페이지 -->
+						<%-- 마지막 페이지 --%>
 						<c:choose>
 							<c:when test="${page == (lastPage)}">
 								<li class="disabled">
