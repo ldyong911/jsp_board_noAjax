@@ -33,6 +33,7 @@ public class UserServiceImpl implements IUserService{
 	public UserVO selectUser(String userId) {
 		sqlSession = sqlSessionFactory.openSession();
 		UserVO userVO = userDao.selectUser(sqlSession, userId);
+		sqlSession.close();
 		
 		return userVO;
 	}
