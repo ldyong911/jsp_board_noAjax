@@ -54,6 +54,7 @@ public class PostingController extends HttpServlet {
 			resultUpdate += postingService.updateLevel(postingVO);
 		}
 		logger.debug("resultUpdate : {}", resultUpdate);
+		logger.debug("postingHierar.size() : {}", postingHierar.size());
 		
 		//page, pageSize에 해당하는 파라미터 받기 ==> pageVO
 		//단, 파라미터가 없을경우 page : 1, pageSize : 10
@@ -78,7 +79,18 @@ public class PostingController extends HttpServlet {
 		//게시글 수
 		int postingCnt = (int)resultMap.get("postingCnt");
 		//마지막페이지 구하기
-		int lastPage = postingCnt == 0 ? 1 : (int)Math.ceil((postingCnt*1.0)/pageSize);
+		int lastPage = postingCnt/pageSize + (postingCnt%pageSize > 0 ? 1 : 0);
+//		int lastPage = (int)Math.ceil((postingCnt*1.0)/pageSize);
+		
+		//마지막페이지가 포함된 시작페이지 구하기
+		int lastPageStartPage = ((lastPage - 1) / 10) * 10 + 1;
+		//시작 페이지 구하기
+		//10의 배수로 끝나는 페이지는 10으로 나누면 몫이 증가하기 때문에 - 1 한후
+		//10으로 나눈 몫을 다시 10으로 곱해주고 + 1해주면 예시로 12페이지든 13페이지든 시작이 11페이지가 됨
+		int startPage = ((page - 1) / 10) * 10 + 1; 
+		//마지막 페이지 구하기
+		//시작페이지 + 10 하고 -1 해주면 예시로 12페이지든 13페이지든 끝이 20페이지가 됨
+		int endPage = startPage + 10 - 1;
 		
 		//request객체에 조회된 결과를 속성으로 설정
 		request.setAttribute("postingList", postingList);
@@ -86,6 +98,9 @@ public class PostingController extends HttpServlet {
 		request.setAttribute("pageSize", pageSize);
 		request.setAttribute("page", page);
 		request.setAttribute("lastPage", lastPage);
+		request.setAttribute("lastPageStartPage", lastPageStartPage);
+		request.setAttribute("startPage", startPage);
+		request.setAttribute("endPage", endPage);
 		
 		// posting/posting.jsp로 forward
 		request.getRequestDispatcher("/posting/posting.jsp").forward(request, response);

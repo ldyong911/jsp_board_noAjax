@@ -109,17 +109,32 @@
 								</li>
 							</c:otherwise>
 						</c:choose>
-
-						<%-- 페이지 --%>
-						<c:forEach begin="1" end="${lastPage}" var="i">
-							<c:set var="active" value="" />
-							<c:if test="${i == page}">
-								<c:set var="active" value="active" />
-							</c:if>
-							<li class="${active}">
-								<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${i}">${i}</a>
-							</li>
-						</c:forEach>
+						
+						<%-- 페이지(네비게이션도 10개로 제한하며 시작페이지와 끝페이지, 마지막페이지가 해당되는 페이지의 시작페이지와 끝페이지를 가지고 세팅) --%>
+						<c:choose>
+							<c:when test="${startPage == lastPageStartPage}"> <%-- 마지막페이지가 해당되는 페이지의 시작페이지이면 다음로직 실행 --%>
+								<c:forEach begin="${lastPageStartPage}" end="${lastPage}" var="i">
+									<c:set var="active" value="" />
+									<c:if test="${i == page}">
+										<c:set var="active" value="active" />
+									</c:if>
+									<li class="${active}">
+										<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${i}">${i}</a>
+									</li>
+								</c:forEach>
+							</c:when>
+							<c:otherwise>
+								<c:forEach begin="${startPage}" end="${endPage}" var="i">
+									<c:set var="active" value="" />
+									<c:if test="${i == page}">
+										<c:set var="active" value="active" />
+									</c:if>
+									<li class="${active}">
+										<a href="${pageContext.request.contextPath}/posting?board_num=${board_num}&page=${i}">${i}</a>
+									</li>
+								</c:forEach>
+							</c:otherwise>
+						</c:choose>
 						
 						<%-- 앞으로가기 페이지 --%>
 						<c:choose>

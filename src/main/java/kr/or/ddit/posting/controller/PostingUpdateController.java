@@ -82,6 +82,8 @@ public class PostingUpdateController extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		
 		String posting_num_str = request.getParameter("posting_num");
 		Integer posting_num = Integer.parseInt(posting_num_str);
 		String posting_title = request.getParameter("posting_title");
@@ -98,7 +100,8 @@ public class PostingUpdateController extends HttpServlet {
 		int result2 = 0;
 		
 		//기존의 첨부파일 삭제
-		attachService.deleteAttach(posting_num);
+		Integer attach_num = Integer.parseInt(request.getParameter("attach_num"));
+		attachService.deleteAttach(attach_num);
 		
 		//파일이름과 저장경로 초기화
 		String filename = "";

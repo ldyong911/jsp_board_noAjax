@@ -81,6 +81,7 @@ public class PostingDaoImpl implements IPostingDao{
 	public List<PostingVO> selectPostingPaging(SqlSession sqlSession,
 			Map<String, Object> map) {
 		List<PostingVO> postingList = sqlSession.selectList("posting.selectPostingPaging", map);
+		System.out.println(postingList.size());
 		return postingList;
 	}
 

@@ -82,5 +82,5 @@ public class BoardDaoImplTest {
 		/***Then***/
 		assertEquals(1, result);
 	}
-
+	
 }

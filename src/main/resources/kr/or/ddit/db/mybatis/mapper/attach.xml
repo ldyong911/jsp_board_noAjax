@@ -20,7 +20,7 @@
   <!-- 첨부파일 삭제 -->
   <delete id="deleteAttach" parameterType="Integer">
   	delete from attach
-  	 where posting_num = #{posting_num} 
+  	 where attach_num = #{attach_num} 
   </delete>
   
   <!-- 첨부파일 조회 -->
