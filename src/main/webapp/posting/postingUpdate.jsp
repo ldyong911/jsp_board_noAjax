@@ -120,6 +120,12 @@
 			var files = attach.files;
 			var filenameLabel = "";
 			
+			//파일 개수제한
+			if(files.length > 5){
+				alert("첨부파일은 5개까지 가능합니다.");
+				return;
+			}
+			
 			for(var i=0; i<files.length; i++){
 				console.log(files[i].name);
 				filenameLabel += "<label>"+files[i].name+"</label> <br>"; //동적으로 파일명을 가지고 라벨 생성
