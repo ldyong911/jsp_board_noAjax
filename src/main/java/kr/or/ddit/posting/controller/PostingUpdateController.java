@@ -100,8 +100,11 @@ public class PostingUpdateController extends HttpServlet {
 		int result2 = 0;
 		
 		//기존의 첨부파일 삭제
-		Integer attach_num = Integer.parseInt(request.getParameter("attach_num"));
-		attachService.deleteAttach(attach_num);
+		String attach_num_str = request.getParameter("attach_num");
+		if(attach_num_str != null){
+			Integer attach_num = Integer.parseInt(attach_num_str);
+			attachService.deleteAttach(attach_num);
+		}
 		
 		//파일이름과 저장경로 초기화
 		String filename = "";
