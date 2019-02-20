@@ -55,7 +55,7 @@
 												<%-- indent 처리(level을 얻어와서 세팅한다음 반복문으로 공백표시) --%>
 												<c:set var="level" value="${posting.posting_level}"/>
 												<c:forEach begin="1" end="${level}">
-													-&nbsp;
+													&nbsp;
 												</c:forEach>
 												→
 											</c:if>

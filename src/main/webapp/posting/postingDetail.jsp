@@ -74,7 +74,6 @@
 						<div class="col-sm-10">
 							<c:forEach items="${replyList}" var="reply" varStatus="status">
 								<input type="hidden" class="reply_num" name="reply_num" value="${reply.reply_num}"/>
-								${reply.reply_num}
 								<c:choose>
 									<c:when test="${reply.delete_exist == 'Y'}">
 										<label>삭제된 댓글입니다.</label>
@@ -88,8 +87,8 @@
 											[${reply.reply_userid}/<fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/>]
 										</label>
 										<c:if test="${sessionScope.userVO.userId == reply.reply_userid}">
-											<input class="btnUpdReply" type="button" value="댓글수정"/>
-											<input class="btnDelReply" type="button" value="댓글삭제" onclick="delReply(${reply.reply_num})"/>
+											<input class="btnUpdReply" type="button" value="댓글수정" onclick="replyNum(${reply.reply_num})"/>
+											<input class="btnDelReply" type="button" value="댓글삭제" onclick="replyNum(${reply.reply_num})"/>
 										</c:if>
 									</c:otherwise>
 								</c:choose>
@@ -120,8 +119,8 @@
 		///////////////////////////////////////////////
 		//해당 수정버튼의 reply_num값을 구하기위해 사용되는 함수
 		var reply_num = "";
-		function delReply(num){
-			reply_num = num;
+		function replyNum(n){
+			reply_num = n;
 		}
 		///////////////////////////////////////////////
 	

@@ -24,7 +24,8 @@
 			<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 				<h1 class="page-header">댓글수정</h1>
 				<form id="frmUpd" action="${pageContext.request.contextPath}/replyUpdate" method="post">
-					<textarea rows="10" cols="150">${replyVO.reply_content}</textarea> <br>
+					<input type="hidden" name="reply_num" value="${replyVO.reply_num}"/>
+					<textarea rows="10" cols="150" name="reply_content">${replyVO.reply_content}</textarea> <br>
 					<input type="button" id="btnUpd" value="저장"/>
 				</form>
 			</div>
@@ -38,7 +39,7 @@
 	$(document).ready(function() {
 		//댓글 수정 버튼 클릭이벤트
 		$("#btnUpd").on("click", function(){
-			$("frmUpd").submin();
+			$("#frmUpd").submit();
 		});
 	});
 	</script>
