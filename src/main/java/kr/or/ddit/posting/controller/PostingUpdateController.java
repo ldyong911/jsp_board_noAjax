@@ -13,20 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import kr.or.ddit.attach.model.AttachVO;
 import kr.or.ddit.attach.service.AttachServiceImpl;
 import kr.or.ddit.attach.service.IAttachService;
 import kr.or.ddit.posting.model.PostingVO;
 import kr.or.ddit.posting.service.IPostingService;
 import kr.or.ddit.posting.service.PostingServiceImpl;
-import kr.or.ddit.user.model.UserVO;
 import kr.or.ddit.util.PartUtil;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @WebServlet("/postingUpdate")
-@MultipartConfig(maxFileSize=5*1024*1024, maxRequestSize=5*5*1024*1024)
+@MultipartConfig(maxFileSize=5*1024*1024, maxRequestSize=5*5*1024*1024, location="d:\\")
 public class PostingUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	

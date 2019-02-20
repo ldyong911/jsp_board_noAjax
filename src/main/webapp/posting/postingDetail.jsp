@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -46,7 +47,7 @@
 						<label for="attachfile" class="col-sm-2 control-label">첨부파일</label>
 						
 						<%-- 파일명을 가지는 라벨을 동적으로 생성하기 위해 id값을 부여해서 jquery html 속성을 사용 --%>
-						<div id="file" class="col-sm-5">
+						<div id="file" class="col-sm-6">
 							<c:forEach items="${attachList}" var="attach">
 								<a href="${pageContext.request.contextPath}/attach?attach_num=${attach.attach_num}">
 									${attach.filename}
@@ -66,19 +67,42 @@
 						<input type="hidden" name="parentposting_num" value="${postingVO.posting_num}"/>
 						<input id="btnIns" type="button" value="답글"/>
 					</div>
-					
+				
 					<%-- 댓글 목록 출력해야함 --%>
 					<div class="form-group">
-						<div class="col-sm-offset-2 col-sm-10">
-							<input id="btnUpdReply" type="button" value="댓글수정"/>
+						<label for="reply_content" class="col-sm-2 control-label">댓글</label>
+						<div class="col-sm-10">
+							<c:forEach items="${replyList}" var="reply" varStatus="status">
+								<input type="hidden" class="reply_num" name="reply_num" value="${reply.reply_num}"/>
+								${reply.reply_num}
+								<c:choose>
+									<c:when test="${reply.delete_exist == 'Y'}">
+										<label>삭제된 댓글입니다.</label>
+										<label>
+											[${reply.reply_userid}/<fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/>]
+										</label>
+									</c:when>
+									<c:otherwise>
+										<label>${reply.reply_content}</label>
+										<label>
+											[${reply.reply_userid}/<fmt:formatDate value="${reply.reply_date}" pattern="yyyy-MM-dd"/>]
+										</label>
+										<c:if test="${sessionScope.userVO.userId == reply.reply_userid}">
+											<input class="btnUpdReply" type="button" value="댓글수정"/>
+											<input class="btnDelReply" type="button" value="댓글삭제" onclick="delReply(${reply.reply_num})"/>
+										</c:if>
+									</c:otherwise>
+								</c:choose>
+								<br>
+							</c:forEach>
 						</div>
 					</div>
 					<%--  --%>
 					
 					<div class="form-group">
-						<label for="reply_content" class="col-sm-2 control-label">댓글</label>
-						<div class="col-sm-7">
-							<input type="text" class="form-control" id="reply_content" name="reply_content"/>
+						<label for="attachfile" class="col-sm-2 control-label"></label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" name="reply_content"/>
 						</div>
 						<input id="btnInsReply" type="button" value="댓글저장"/>
 					</div>
@@ -93,25 +117,57 @@
 	
 	<script src="/SE2/js/HuskyEZCreator.js"></script>
 	<script type="text/javascript">
-	$(document).ready(function() {
-		//수정버튼 클릭이벤트
-		$("#btnUpd").on("click", function(){
-			$("#type").val("1");
-			$("#frmUpd").submit();
+		///////////////////////////////////////////////
+		//해당 수정버튼의 reply_num값을 구하기위해 사용되는 함수
+		var reply_num = "";
+		function delReply(num){
+			reply_num = num;
+		}
+		///////////////////////////////////////////////
+	
+		$(document).ready(function() {
+			//수정버튼 클릭이벤트
+			$("#btnUpd").on("click", function(){
+				$("#type").val("1");
+				$("#frmUpd").submit();
+			});
+			
+			//삭제버튼 클릭이벤트
+			$("#btnDel").on("click", function(){
+				$("#type").val("2");
+				$("#frmUpd").submit();
+			});
+			
+			//답글버튼 클릭이벤트
+			$("#btnIns").on("click", function(){
+				$("#frmUpd").attr("action", "${pageContext.request.contextPath}/postingInsert"); //속성바꿀때 사용
+				$("#frmUpd").submit();
+			});
+			
+			//댓글 등록버튼 클릭이벤트
+			$("#btnInsReply").on("click", function(){
+				$("#type").val("1");
+				$("#frmUpd").attr("action", "${pageContext.request.contextPath}/reply");
+				$("#frmUpd").attr("method", "post");
+				$("#frmUpd").submit();
+			});
+			
+			//댓글 삭제버튼 클릭이벤트
+			$(".btnDelReply").on("click", function(){
+				$("#type").val("2");
+				$(".reply_num").val(reply_num); //해당 삭제버튼의 해당 댓글번호
+				$("#frmUpd").attr("action", "${pageContext.request.contextPath}/reply");
+				$("#frmUpd").attr("method", "post");
+				$("#frmUpd").submit();
+			});
+			
+			//댓글 수정버튼 클릭이벤트
+			$(".btnUpdReply").on("click", function(){
+				$(".reply_num").val(reply_num);
+				$("#frmUpd").attr("action", "${pageContext.request.contextPath}/replyUpdate");
+				$("#frmUpd").submit();
+			});
 		});
-		
-		//삭제버튼 클릭이벤트
-		$("#btnDel").on("click", function(){
-			$("#type").val("2");
-			$("#frmUpd").submit();
-		});
-		
-		//답글버튼 클릭이벤트
-		$("#btnIns").on("click", function(){
-			$("#frmUpd").attr("action", "${pageContext.request.contextPath}/postingInsert"); //속성바꿀때 사용
-			$("#frmUpd").submit();
-		});
-	});
 	</script>
 </body>
 </html>

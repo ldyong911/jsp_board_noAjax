@@ -49,14 +49,15 @@
 						<%-- 파일명을 가지는 라벨을 동적으로 생성하기 위해 id값을 부여해서 jquery html 속성을 사용 --%>
 						<div id="file" class="col-sm-7">
 							<c:forEach items="${attachList}" var="attach">
-								<label>${attach.filename}</label> <br>
+								<label>${attach.filename}</label>
+								<a href="${pageContext.request.contextPath}/attach?attach_num=${attach.attach_num}&type=3">x</a>
+								<br>
 							</c:forEach>
 						</div>
 						
 						<%-- 파일속성은 value값 문자를 지정할 수 없기때문에 file속성이 들어간 태그의 id값과 일치하는 label을 만들어서 문자를 따로 지정해야함 --%>
 						<label for="attach">┽</label>
 						<input id="attach" name="attach" type="file" max="5" multiple style="display: none;"/>
-						
 					</div>
 					
 					<div class="form-group">

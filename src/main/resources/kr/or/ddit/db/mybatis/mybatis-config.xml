@@ -13,6 +13,7 @@
   	<typeAlias alias="PostingVO" type="kr.or.ddit.posting.model.PostingVO"/>
   	<typeAlias alias="AttachVO" type="kr.or.ddit.attach.model.AttachVO"/>
   	<typeAlias alias="PageVO" type="kr.or.ddit.util.model.PageVO"/>
+  	<typeAlias alias="ReplyVO" type="kr.or.ddit.reply.model.ReplyVO"/>
   </typeAliases>
   
   <environments default="development">
@@ -33,5 +34,6 @@
     <mapper resource="kr/or/ddit/db/mybatis/mapper/board.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/posting.xml"/>
     <mapper resource="kr/or/ddit/db/mybatis/mapper/attach.xml"/>
+    <mapper resource="kr/or/ddit/db/mybatis/mapper/reply.xml"/>
   </mappers>
 </configuration>

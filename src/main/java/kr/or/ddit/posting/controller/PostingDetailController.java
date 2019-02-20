@@ -15,6 +15,9 @@ import kr.or.ddit.attach.service.IAttachService;
 import kr.or.ddit.posting.model.PostingVO;
 import kr.or.ddit.posting.service.IPostingService;
 import kr.or.ddit.posting.service.PostingServiceImpl;
+import kr.or.ddit.reply.model.ReplyVO;
+import kr.or.ddit.reply.service.IReplyService;
+import kr.or.ddit.reply.service.ReplyServiceImpl;
 
 @WebServlet("/postingDetail")
 public class PostingDetailController extends HttpServlet {
@@ -22,11 +25,13 @@ public class PostingDetailController extends HttpServlet {
     
 	private IPostingService postingService;
 	private IAttachService attachService;
+	private IReplyService replyService;
 	
 	@Override
 	public void init() throws ServletException {
 		postingService = new PostingServiceImpl();
 		attachService = new AttachServiceImpl();
+		replyService = new ReplyServiceImpl();
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +49,13 @@ public class PostingDetailController extends HttpServlet {
 			request.setAttribute("attachList", attachList);
 		}
 		
+		//해당 게시글의 댓글 조회한후 있으면 속성에 설정
+		List<ReplyVO> replyList = replyService.getAllReply(posting_num);
+		if(replyList != null){
+			request.setAttribute("replyList", replyList);
+		}
+		
+		//필요한 정보를 request 속성에 설정한후 postingDetail.jsp로 forward
 		request.getRequestDispatcher("/posting/postingDetail.jsp").forward(request, response);
 	}
 
