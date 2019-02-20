@@ -148,8 +148,7 @@ public class PostingUpdateController extends HttpServlet {
 		}
 		//실패 - 원래 화면을 다시 보여줌
 		else{
-			request.setAttribute("postingVO", postingVO);
-			request.getRequestDispatcher("/posting/postingUpdate.jsp").forward(request, response);
+			request.getRequestDispatcher("/postingUpdate?type=1&posting_num=" + postingVO.getPosting_num()).forward(request, response);
 		}
 	}
 

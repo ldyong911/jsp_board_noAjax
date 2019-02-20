@@ -50,7 +50,7 @@
 							<%-- 기존의 파일리스트 --%>
 							<c:forEach items="${attachList}" var="attach">
 								<label>${attach.filename}</label>
-								<a href="${pageContext.request.contextPath}/attach?attach_num=${attach.attach_num}">x</a>
+								<a href="${pageContext.request.contextPath}/attachDelete?posting_num=${postingVO.posting_num}&attach_num=${attach.attach_num}">x</a>
 								<br>
 							</c:forEach>
 							
